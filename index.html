@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini Portal de Usuario</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Mini Portal de Usuario</h1>
+    </header>
+
+    <div class="container">
+      <form id="formUsuario">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" placeholder="Ingresa tu nombre" />
+        <span class="error" id="error-nombre"></span>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="Ingresa tu email" />
+        <span class="error" id="error-email"></span>
+
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad" placeholder="Ingresa tu edad" />
+        <span class="error" id="error-edad"></span>
+
+        <button id="btnguardar" type="button" class="btn">Guardar</button>
+        <button id="btnver" type="button" class="btn">Ver Datos</button>
+        <button id="btnlimpiar" type="button" class="btn">
+          Limpiar Formulario
+        </button>
+        <button id="btnborrar" type="button" class="btn">Borrar Datos</button>
+      </form>
+
+      <div id="resultado"></div>
+    </div>
+
+    <footer>
+      <p>Diseñado por mí &copy; Derechos reservados pa mi</p>
+    </footer>
+
+    <script src="aja.js"></script>
+  </body>
+</html>
