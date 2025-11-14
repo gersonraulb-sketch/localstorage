@@ -55,18 +55,24 @@ btnguardar.addEventListener("click", (e) => {
 
 btnver.addEventListener("click", () => {
   const resultado = document.getElementById("resultado");
+  const usuariosguardado = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-  if (resultado.style.display !== 'none' && resultado.innerHTML !== '') {
+  if(usuariosguardado.length === 0){
+  alert('No hay datos para mostrar.');
+  resultado.style.display = 'none';
+  resultado.innerHTML = '';
+  return;
+  }
+
+
+  if (resultado.style.display === 'block') {
     resultado.style.display = 'none';
+    resultado.innerHTML = '';
     btnver.textContent = 'Ver Datos';
     return;
   }
 
-  const usuariosguardado = JSON.parse(localStorage.getItem("usuarios"));
-
-  if (usuariosguardado && usuariosguardado.length > 0) {
     let html = "<h3>Usuarios Guardados:</h3>";
-
     usuariosguardado.forEach((u, i) => {
       html += `
       <p><strong>Usuario #${i + 1}</strong></p>
@@ -89,14 +95,9 @@ btnver.addEventListener("click", () => {
         usuariosguardado.splice(index, 1);
         localStorage.setItem('usuarios', JSON.stringify(usuariosguardado));
         btnver.click();
-        alert('Ususario eliminado.');
+        alert('Usuario eliminado.');
       });
     });
-  } else {
-  resultado.innerHTML = "<p>No hay datos guardados.</p>";
-  resultado.style.display = 'block';
-  btnver.textContent = 'Ocultar Datos';
-}
 });
 
 btnlimpiar.addEventListener("click", () => {
@@ -135,4 +136,5 @@ btnborrar.addEventListener("click", () => {
   document.getElementById("resultado").innerHTML = "";
   alert("Datos borrados del LocalStorage.");
 });
+
 
