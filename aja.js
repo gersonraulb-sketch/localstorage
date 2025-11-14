@@ -51,17 +51,61 @@ btnguardar.addEventListener("click", (e) => {
     alert("Datos guardados correctamente.");
     limpiarFormulario();
   }
+  const resultado = document.getElementById("resultado");
+  if (resultado.style.display === 'block') {
+    mostrarUsuarios();
+  }
 });
+
+function mostrarUsuarios() {
+  const resultado = document.getElementById("resultado");
+  const usuariosguardado = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+  if (usuariosguardado.length === 0) {
+    alert('No hay datos para mostrar.');
+    resultado.style.display = 'none';
+    resultado.innerHTML = '';
+    btnver.textContent = 'Ver Datos';
+    return;
+  }
+ let html = "<h3>Usuarios Guardados:</h3>";
+  usuariosguardado.forEach((u, i) => {
+    html += `
+      <p><strong>Usuario #${i + 1}</strong></p>
+      <p><strong>Nombre:</strong> ${u.nombre}</p>
+      <p><strong>Email:</strong> ${u.email}</p>
+      <p><strong>Edad:</strong> ${u.edad}</p>
+      <button class='btn-eliminar-individual' data-index='${i}'>Borrar Usuario</button>
+      <hr>
+    `;
+  });
+
+  resultado.innerHTML = html;
+  resultado.style.display = "block";
+  btnVer.textContent = "Ocultar Datos";
+
+  // Botones de borrar individual
+  const botonesBorrar = document.querySelectorAll(".btn-borrar-individual");
+  botonesBorrar.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const index = parseInt(e.target.getAttribute("data-index"));
+      usuariosGuardados.splice(index, 1);
+      localStorage.setItem("usuarios", JSON.stringify(usuariosGuardados));
+      mostrarUsuarios();
+      alert("Usuario eliminado.");
+    });
+  });
+}
 
 btnver.addEventListener("click", () => {
   const resultado = document.getElementById("resultado");
   const usuariosguardado = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-  if(usuariosguardado.length === 0){
-  alert('No hay datos para mostrar.');
-  resultado.style.display = 'none';
-  resultado.innerHTML = '';
-  return;
+  if (usuariosguardado.length === 0) {
+    alert('No hay datos para mostrar.');
+    resultado.style.display = 'none';
+    resultado.innerHTML = '';
+    return;
   }
 
 
@@ -72,9 +116,9 @@ btnver.addEventListener("click", () => {
     return;
   }
 
-    let html = "<h3>Usuarios Guardados:</h3>";
-    usuariosguardado.forEach((u, i) => {
-      html += `
+  let html = "<h3>Usuarios Guardados:</h3>";
+  usuariosguardado.forEach((u, i) => {
+    html += `
       <p><strong>Usuario #${i + 1}</strong></p>
       <p><strong>Nombre:</strong> ${u.nombre}</p>
       <p><strong>Email:</strong> ${u.email}</p>
@@ -82,22 +126,22 @@ btnver.addEventListener("click", () => {
       <button class='btn-eliminar-individual' data-index='${i}'>Borrar Usuario</button>
       <hr>
     `;
-    });
+  });
 
-    resultado.innerHTML = html;
-    resultado.style.display = 'block';
-    btnver.textContent = 'Ocultar Datos';
+  resultado.innerHTML = html;
+  resultado.style.display = 'block';
+  btnver.textContent = 'Ocultar Datos';
 
-    const botonesBorrar = document.querySelectorAll('.btn-eliminar-individual');
-    botonesBorrar.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        const index = parseInt(e.target.getAttribute('data-index'));
-        usuariosguardado.splice(index, 1);
-        localStorage.setItem('usuarios', JSON.stringify(usuariosguardado));
-        btnver.click();
-        alert('Usuario eliminado.');
-      });
+  const botonesBorrar = document.querySelectorAll('.btn-eliminar-individual');
+  botonesBorrar.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const index = parseInt(e.target.getAttribute('data-index'));
+      usuariosguardado.splice(index, 1);
+      localStorage.setItem('usuarios', JSON.stringify(usuariosguardado));
+      btnver.click();
+      alert('Usuario eliminado.');
     });
+  });
 });
 
 btnlimpiar.addEventListener("click", () => {
@@ -112,7 +156,7 @@ btnlimpiar.addEventListener("click", () => {
     nombre.value.trim() === "" &&
     email.value.trim() === "" &&
     edad.value.trim() === "" &&
-  !hayErrores;
+    !hayErrores;
 
   if (todoVacio) {
     alert('No hay nada que limpiar.');
@@ -136,5 +180,3 @@ btnborrar.addEventListener("click", () => {
   document.getElementById("resultado").innerHTML = "";
   alert("Datos borrados del LocalStorage.");
 });
-
-
