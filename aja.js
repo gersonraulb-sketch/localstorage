@@ -110,7 +110,7 @@ btnlimpiar.addEventListener("click", () => {
   const todoVacio =
     nombre.value.trim() === "" &&
     email.value.trim() === "" &&
-    edad.value.trim() === "";
+    edad.value.trim() === "" &&
   !hayErrores;
 
   if (todoVacio) {
@@ -135,3 +135,4 @@ btnborrar.addEventListener("click", () => {
   document.getElementById("resultado").innerHTML = "";
   alert("Datos borrados del LocalStorage.");
 });
+
