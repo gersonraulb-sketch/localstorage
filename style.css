@@ -65,7 +65,7 @@ input[type="number"] {
 }
 
 .btn:hover {
-  background-color: #3579d9;
+  background-color: #5e0303;
 }
 
 .error {
@@ -91,3 +91,4 @@ footer {
   width: 100%;
   bottom: 0;
 }
+
